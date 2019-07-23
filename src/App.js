@@ -1,10 +1,10 @@
 import React from 'react';
-import Homepage from './pages/homepage/Homepage';
+import Router from './routes/Router';
 
 export default function App() {
   return (
     <div>
-      <Homepage />
+      <Router />
     </div>
   );
 }
