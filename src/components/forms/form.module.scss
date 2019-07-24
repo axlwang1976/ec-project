@@ -1,0 +1,18 @@
+.form {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+
+  .title,
+  .button {
+    margin: 10px 0;
+  }
+
+  .button {
+    height: 3.5rem;
+
+    span {
+      color: #fff;
+    }
+  }
+}

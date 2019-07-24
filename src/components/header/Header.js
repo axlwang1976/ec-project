@@ -16,6 +16,9 @@ export default function Header() {
         <Link className={styles.option} to="/shop">
           CONTACT
         </Link>
+        <Link className={styles.option} to="/signin">
+          SIGN IN
+        </Link>
       </div>
     </div>
   );
