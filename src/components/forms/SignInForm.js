@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { signInWithGoogle } from '../../firebase/firebase';
 import styles from './form.module.scss';
 
 export default class SignInForm extends Component {
@@ -16,6 +18,7 @@ export default class SignInForm extends Component {
 
   render() {
     const { email, password } = this.state;
+    const { currentUser } = this.props;
 
     return (
       <div className={styles.form}>
@@ -54,19 +57,26 @@ export default class SignInForm extends Component {
             color="primary"
             fullWidth
             className={styles.button}
+            disabled={currentUser !== null}
           >
-            Sign In
+            {!currentUser ? 'Sign In' : 'Already sign in'}
           </Button>
           <Button
             variant="contained"
             color="secondary"
             fullWidth
             className={styles.button}
+            onClick={signInWithGoogle}
+            disabled={currentUser !== null}
           >
-            Sign In with Google
+            {!currentUser ? 'Sign In with Google' : 'Already sign in'}
           </Button>
         </ValidatorForm>
       </div>
     );
   }
 }
+
+SignInForm.propTypes = {
+  currentUser: PropTypes.object,
+};

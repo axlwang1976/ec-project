@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase/firebase';
 import styles from './Header.module.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-export default function Header() {
+export default function Header({ currentUser }) {
   return (
     <div className={styles.header}>
       <Link className={styles.logoContainer} to="/">
@@ -16,10 +18,26 @@ export default function Header() {
         <Link className={styles.option} to="/shop">
           CONTACT
         </Link>
-        <Link className={styles.option} to="/signin">
-          SIGN IN
-        </Link>
+        {!currentUser ? (
+          <Link className={styles.option} to="/signin">
+            SIGN IN
+          </Link>
+        ) : (
+          <div
+            className={styles.option}
+            onClick={() => auth.signOut()}
+            onKeyPress={() => {}}
+            role="button"
+            tabIndex={0}
+          >
+            SIGN OUT
+          </div>
+        )}
       </div>
     </div>
   );
 }
+
+Header.propTypes = {
+  currentUser: PropTypes.object,
+};
