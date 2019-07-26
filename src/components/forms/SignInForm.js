@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { auth, signInWithGoogle } from '../../firebase/firebase';
 import styles from './form.module.scss';
 
-export default class SignInForm extends Component {
+class SignInForm extends Component {
   state = { email: '', password: '' };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -82,6 +83,12 @@ export default class SignInForm extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser,
+});
+
 SignInForm.propTypes = {
   currentUser: PropTypes.object,
 };
+
+export default connect(mapStateToProps)(SignInForm);

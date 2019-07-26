@@ -1,18 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import SignInForm from '../../components/forms/SignInForm';
 import SignUpForm from '../../components/forms/SignUpForm';
 import styles from './SignIn.module.scss';
 
-export default function SignIn({ currentUser }) {
+export default function SignIn() {
   return (
     <div className={styles.signin}>
-      <SignInForm currentUser={currentUser} />
+      <SignInForm />
       <SignUpForm />
     </div>
   );
 }
-
-SignIn.propTypes = {
-  currentUser: PropTypes.object,
-};
