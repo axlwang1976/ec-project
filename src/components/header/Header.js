@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import { auth } from '../../firebase/firebase';
 import styles from './Header.module.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
+import CartIcon from '../cartIcon/CartIcon';
+import CartDropdown from '../cartDropdown/CartDropdown';
 
-function Header({ currentUser }) {
+function Header({ currentUser, isShowing }) {
   return (
     <div className={styles.header}>
       <Link className={styles.logoContainer} to="/">
@@ -34,17 +36,23 @@ function Header({ currentUser }) {
             SIGN OUT
           </div>
         )}
+        <div className={styles.option} to="/cart">
+          <CartIcon />
+        </div>
+        {isShowing && <CartDropdown />}
       </div>
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser,
+const mapStateToProps = ({ user, cart }) => ({
+  currentUser: user.currentUser,
+  isShowing: cart.isShowing,
 });
 
 Header.propTypes = {
   currentUser: PropTypes.object,
+  isShowing: PropTypes.bool,
 };
 
 export default connect(mapStateToProps)(Header);
