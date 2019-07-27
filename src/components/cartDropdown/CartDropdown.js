@@ -6,9 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import Button from '@material-ui/core/Button';
 import CartItem from './CartItem';
 import { selectCartItems } from '../../redux/selectors/cartSelectors';
+import { toggleShoppingList } from '../../redux/actions/cartActions';
 import styles from './CartDropdown.module.scss';
 
-const CartDropdown = ({ cartItems }) => (
+const CartDropdown = ({ cartItems, toggleShoppingListConnect }) => (
   <div className={styles.cartDropdown}>
     <div className={styles.cartItems}>
       {!cartItems.length ? (
@@ -22,8 +23,9 @@ const CartDropdown = ({ cartItems }) => (
       color="primary"
       fullWidth
       className={styles.button}
+      onClick={toggleShoppingListConnect}
     >
-      CHECKOUT
+      <Link to="/checkout">CHECKOUT</Link>
     </Button>
   </div>
 );
@@ -34,6 +36,10 @@ const mapStateToProps = createStructuredSelector({
 
 CartDropdown.propTypes = {
   cartItems: PropTypes.array,
+  toggleShoppingListConnect: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(CartDropdown);
+export default connect(
+  mapStateToProps,
+  { toggleShoppingListConnect: toggleShoppingList }
+)(CartDropdown);

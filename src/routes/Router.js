@@ -4,6 +4,7 @@ import Homepage from '../pages/homepage/Homepage';
 import Shop from '../pages/shop/Shop';
 import SignIn from '../pages/signin/SignIn';
 import Cart from '../pages/cart/Cart';
+import Checkout from '../pages/checkout/Checkout';
 
 export default function Router() {
   return (
@@ -12,6 +13,7 @@ export default function Router() {
       <Route exact path="/shop" render={() => <Shop />} />
       <Route exact path="/signin" render={() => <SignIn />} />
       <Route exact path="/cart" render={() => <Cart />} />
+      <Route exact path="/checkout" render={() => <Checkout />} />
     </Switch>
   );
 }
