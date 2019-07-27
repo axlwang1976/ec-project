@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { auth } from '../../firebase/firebase';
 import styles from './Header.module.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from '../cartIcon/CartIcon';
+import { selectCurrentUser } from '../../redux/selectors/userSelectors';
+import { selectIsShowing } from '../../redux/selectors/cartSelectors.js';
 import CartDropdown from '../cartDropdown/CartDropdown';
 
 function Header({ currentUser, isShowing }) {
@@ -45,9 +48,9 @@ function Header({ currentUser, isShowing }) {
   );
 }
 
-const mapStateToProps = ({ user, cart }) => ({
-  currentUser: user.currentUser,
-  isShowing: cart.isShowing,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  isShowing: selectIsShowing,
 });
 
 Header.propTypes = {

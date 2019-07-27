@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import { auth, signInWithGoogle } from '../../firebase/firebase';
+import { selectCurrentUser } from '../../redux/selectors/userSelectors';
 import styles from './form.module.scss';
 
 class SignInForm extends Component {
@@ -83,8 +85,8 @@ class SignInForm extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
 });
 
 SignInForm.propTypes = {
