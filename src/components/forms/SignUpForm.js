@@ -11,11 +11,8 @@ export default class SignUpForm extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-
     const { displayName, email, password, confirmPassword } = this.state;
-
     if (password !== confirmPassword) alert('Password do not match!');
-
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,

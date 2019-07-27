@@ -11,15 +11,15 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setUser } = this.props;
+    const { setCurrentUserConnect } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfile(userAuth);
         userRef.onSnapshot(snapshot =>
-          setUser({ id: snapshot.id, ...snapshot.data() })
+          setCurrentUserConnect({ id: snapshot.id, ...snapshot.data() })
         );
       }
-      setUser(userAuth);
+      setCurrentUserConnect(userAuth);
     });
   }
 
@@ -38,10 +38,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-  setUser: PropTypes.func,
+  setCurrentUserConnect: PropTypes.func,
 };
 
 export default connect(
   null,
-  { setUser: setCurrentUser }
+  { setCurrentUserConnect: setCurrentUser }
 )(App);

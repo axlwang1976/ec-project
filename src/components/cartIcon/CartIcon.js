@@ -5,11 +5,11 @@ import { toggleShoppingList } from '../../redux/actions/cartActions';
 import { ReactComponent as ShoppingIcon } from '../../assets/shopping-bag.svg';
 import styles from './CartIcon.module.scss';
 
-function CartIcon({ toggleList }) {
+function CartIcon({ toggleShoppingListConnect }) {
   return (
     <div
       className={styles.cartIcon}
-      onClick={toggleList}
+      onClick={toggleShoppingListConnect}
       onKeyPress={() => {}}
       role="button"
       tabIndex={0}
@@ -21,10 +21,10 @@ function CartIcon({ toggleList }) {
 }
 
 CartIcon.propTypes = {
-  toggleList: PropTypes.func,
+  toggleShoppingListConnect: PropTypes.func,
 };
 
 export default connect(
   null,
-  { toggleList: toggleShoppingList }
+  { toggleShoppingListConnect: toggleShoppingList }
 )(CartIcon);

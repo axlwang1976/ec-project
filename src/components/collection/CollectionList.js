@@ -11,7 +11,7 @@ export default function CollectionList({ title, items }) {
         {items
           .filter((item, i) => i < 4)
           .map(item => (
-            <CollectionItem {...item} key={item.id} />
+            <CollectionItem item={item} key={item.id} />
           ))}
       </div>
     </div>
