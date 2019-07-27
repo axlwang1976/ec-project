@@ -30,7 +30,7 @@ function Checkout({ cartItems, total }) {
         </div>
       </div>
       {cartItems.map(cartItem => (
-        <CheckoutItem {...cartItem} key={cartItem.id} />
+        <CheckoutItem cartItem={cartItem} key={cartItem.id} />
       ))}
       <div className={styles.total}>TOTAL: ${total}</div>
     </div>

@@ -9,15 +9,13 @@ import {
 import styles from './CheckoutItem.module.scss';
 
 function CheckoutItem({
-  id,
-  name,
-  price,
-  qty,
-  imageUrl,
+  cartItem,
   removeCartItemConnent,
   incQtyConnect,
   decQtyConnect,
 }) {
+  const { id, name, price, qty, imageUrl } = cartItem;
+
   return (
     <div className={styles.checkoutItem}>
       <div className={styles.imageContainer}>
@@ -27,7 +25,7 @@ function CheckoutItem({
       <span className={styles.quantity}>
         <div
           className={styles.arrow}
-          onClick={() => decQtyConnect(id)}
+          onClick={() => decQtyConnect(cartItem)}
           onKeyPress={() => {}}
           role="button"
           tabIndex={0}
@@ -60,11 +58,7 @@ function CheckoutItem({
 }
 
 CheckoutItem.propTypes = {
-  id: PropTypes.number,
-  name: PropTypes.string,
-  price: PropTypes.number,
-  qty: PropTypes.number,
-  imageUrl: PropTypes.string,
+  cartItem: PropTypes.object,
   removeCartItemConnent: PropTypes.func,
   incQtyConnect: PropTypes.func,
   decQtyConnect: PropTypes.func,

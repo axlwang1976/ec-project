@@ -1,5 +1,5 @@
 import { cartActionTypes } from '../actionTypes/cartActionTypes';
-import { addToCartHelper } from '../helpers/cartHelper';
+import { addToCartHelper, decQtyHelper } from '../helpers/cartHelper';
 
 const INIT_STATE = { isShowing: false, cartItems: [] };
 
@@ -31,14 +31,7 @@ const cartReducer = (state = INIT_STATE, action) => {
     case cartActionTypes.DEC_QTY:
       return {
         ...state,
-        cartItems: state.cartItems.map(cartItem => {
-          if (cartItem.qty > 0) {
-            return cartItem.id === action.payload
-              ? { ...cartItem, qty: cartItem.qty - 1 }
-              : cartItem;
-          }
-          return cartItem;
-        }),
+        cartItems: decQtyHelper(state.cartItems, action.payload),
       };
     default:
       return state;
