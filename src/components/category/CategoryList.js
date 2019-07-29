@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import CategoryItem from './CategoryItem';
+import { selectCategoryData } from '../../redux/selectors/categorySelectors';
 import styles from './CategoryList.module.scss';
 
 function CategoryList({ items }) {
@@ -14,8 +16,8 @@ function CategoryList({ items }) {
   );
 }
 
-const mapStateToProps = ({ category }) => ({
-  items: category.categoryData,
+const mapStateToProps = createStructuredSelector({
+  items: selectCategoryData,
 });
 
 CategoryList.propTypes = {

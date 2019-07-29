@@ -35,6 +35,11 @@ const INIT_STATE = {
   ],
 };
 
-const categoryReducer = (state = INIT_STATE) => state;
+const categoryReducer = (state = INIT_STATE, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
 
 export default categoryReducer;
