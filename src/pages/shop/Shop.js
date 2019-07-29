@@ -25,7 +25,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 Shop.propTypes = {
-  collections: PropTypes.array,
+  collections: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(Shop);
