@@ -1,20 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import CategoryItem from './CategoryItem';
-import categoryData from '../../categoryData';
 import styles from './CategoryList.module.scss';
 
-export default class CategoryList extends Component {
-  state = { items: categoryData };
-
-  render() {
-    const { items } = this.state;
-
-    return (
-      <div className={styles.directoryMenu}>
-        {items.map(item => (
-          <CategoryItem key={item.id} {...item} />
-        ))}
-      </div>
-    );
-  }
+function CategoryList({ items }) {
+  return (
+    <div className={styles.directoryMenu}>
+      {items.map(item => (
+        <CategoryItem key={item.id} {...item} />
+      ))}
+    </div>
+  );
 }
+
+const mapStateToProps = ({ category }) => ({
+  items: category.categoryData,
+});
+
+CategoryList.propTypes = {
+  items: PropTypes.array,
+};
+
+export default connect(mapStateToProps)(CategoryList);
