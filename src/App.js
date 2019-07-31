@@ -3,15 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from './components/header/Header';
 import Router from './routes/Router';
-import { auth, createUserProfile } from './firebase/firebase';
+import {
+  auth,
+  createUserProfile,
+  firestore,
+  convertCollectionsSnapshotToMap,
+} from './firebase/firebase';
 import { setCurrentUser } from './redux/actions/userActions';
+import { updateCollections } from './redux/actions/shopActions';
 import './App.css';
 
 class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUserConnect } = this.props;
+    const { setCurrentUserConnect, updateCollectionsConnect } = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfile(userAuth);
@@ -20,6 +27,12 @@ class App extends Component {
         );
       }
       setCurrentUserConnect(userAuth);
+    });
+
+    const collectionRef = firestore.collection('collections');
+    collectionRef.onSnapshot(snapshot => {
+      const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+      updateCollectionsConnect(collectionsMap);
     });
   }
 
@@ -39,9 +52,13 @@ class App extends Component {
 
 App.propTypes = {
   setCurrentUserConnect: PropTypes.func,
+  updateCollectionsConnect: PropTypes.func,
 };
 
 export default connect(
   null,
-  { setCurrentUserConnect: setCurrentUser }
+  {
+    setCurrentUserConnect: setCurrentUser,
+    updateCollectionsConnect: updateCollections,
+  }
 )(App);
