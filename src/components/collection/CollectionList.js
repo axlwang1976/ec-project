@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
 import CollectionItem from './CollectionItem';
 import styles from './CollectionList.module.scss';
 
-export default function CollectionList({ title, items }) {
+function CollectionList({ title, items, match }) {
   return (
     <div className={styles.collectionPreview}>
-      <h1 className={styles.title}>{title.toUpperCase()}</h1>
+      <Link to={`${match.url}/${title.toLowerCase()}`} className={styles.title}>
+        {title.toUpperCase()}
+      </Link>
       <div className={styles.preview}>
         {items
           .filter((item, i) => i < 4)
@@ -21,4 +24,7 @@ export default function CollectionList({ title, items }) {
 CollectionList.propTypes = {
   title: PropTypes.string,
   items: PropTypes.array,
+  match: PropTypes.object,
 };
+
+export default withRouter(CollectionList);

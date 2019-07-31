@@ -4,22 +4,26 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectShoppingDataForCollection } from '../../redux/selectors/shopSelectors';
 import CollectionItem from '../../components/collection/CollectionItem';
+import Spinner from '../../components/spinner/Spinner';
 import styles from './Collection.module.scss';
 
 function Collection({ match, items }) {
-  const findCollection = title => items[title];
-  const selectCollection = findCollection(match.params.title);
+  if (items) {
+    const findCollection = title => items[title];
+    const selectCollection = findCollection(match.params.title);
 
-  return (
-    <div className={styles.collectionPage}>
-      <h2 className={styles.title}>{selectCollection.title.toUpperCase()}</h2>
-      <div className={styles.items}>
-        {selectCollection.items.map(item => (
-          <CollectionItem key={item.id} item={item} />
-        ))}
+    return (
+      <div className={styles.collectionPage}>
+        <h2 className={styles.title}>{selectCollection.title.toUpperCase()}</h2>
+        <div className={styles.items}>
+          {selectCollection.items.map(item => (
+            <CollectionItem key={item.id} item={item} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return <Spinner />;
 }
 
 const mapStateToProps = createStructuredSelector({
