@@ -8,7 +8,6 @@ import Spinner from '../../components/spinner/Spinner';
 import styles from './Shop.module.scss';
 
 function Shop({ collections }) {
-  console.log(collections);
   if (collections.length) {
     return (
       <div className={styles.shopPage}>

@@ -2,13 +2,23 @@ import { createSelector } from 'reselect';
 
 const selectShop = state => state.shop;
 
-export const selectShoppingData = createSelector(
+const selectCollections = createSelector(
   [selectShop],
-  shop =>
-    shop ? Object.keys(shop.collections).map(key => shop.collections[key]) : []
+  shop => shop.collections
+);
+
+export const selectShoppingData = createSelector(
+  [selectCollections],
+  collections =>
+    collections ? Object.keys(collections).map(key => collections[key]) : []
 );
 
 export const selectShoppingDataForCollection = createSelector(
-  [selectShop],
-  shop => (shop ? shop.collections : null)
+  [selectCollections],
+  collections => {
+    if (collections) {
+      return collections;
+    }
+    return null;
+  }
 );
