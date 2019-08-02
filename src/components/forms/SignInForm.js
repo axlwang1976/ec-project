@@ -4,8 +4,11 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { auth, signInWithGoogle } from '../../firebase/firebase';
 import { selectCurrentUser } from '../../redux/selectors/userSelectors';
+import {
+  googleSigninStart,
+  emailSigninStart,
+} from '../../redux/actions/userActions';
 import styles from './form.module.scss';
 
 class SignInForm extends Component {
@@ -13,20 +16,16 @@ class SignInForm extends Component {
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  handleSubmit = async e => {
+  handleSubmit = e => {
     e.preventDefault();
     const { email, password } = this.state;
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      this.setState({ email: '', password: '' });
-    } catch (error) {
-      alert(error.message);
-    }
+    const { emailSigninStartConnect } = this.props;
+    emailSigninStartConnect({ email, password });
   };
 
   render() {
     const { email, password } = this.state;
-    const { currentUser } = this.props;
+    const { currentUser, googleSigninStartConnect } = this.props;
 
     return (
       <div className={styles.form}>
@@ -74,7 +73,7 @@ class SignInForm extends Component {
             color="secondary"
             fullWidth
             className={styles.button}
-            onClick={signInWithGoogle}
+            onClick={googleSigninStartConnect}
             disabled={currentUser !== null}
           >
             {!currentUser ? 'Sign In with Google' : 'Already sign in'}
@@ -91,6 +90,14 @@ const mapStateToProps = createStructuredSelector({
 
 SignInForm.propTypes = {
   currentUser: PropTypes.object,
+  googleSigninStartConnect: PropTypes.func,
+  emailSigninStartConnect: PropTypes.func,
 };
 
-export default connect(mapStateToProps)(SignInForm);
+export default connect(
+  mapStateToProps,
+  {
+    googleSigninStartConnect: googleSigninStart,
+    emailSigninStartConnect: emailSigninStart,
+  }
+)(SignInForm);

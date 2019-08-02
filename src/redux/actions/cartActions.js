@@ -23,3 +23,7 @@ export const decQty = id => ({
   type: cartActionTypes.DEC_QTY,
   payload: id,
 });
+
+export const clearCart = () => ({
+  type: cartActionTypes.CLEAR_CART,
+});

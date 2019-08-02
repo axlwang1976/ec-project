@@ -3,28 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from './components/header/Header';
 import Router from './routes/Router';
-import { auth, createUserProfile } from './firebase/firebase';
-import { setCurrentUser } from './redux/actions/userActions';
-import { fetchCollectionsAsync } from './redux/actions/shopActions';
+import { fetchCollectionsStart } from './redux/actions/shopActions';
+import { checkUser } from './redux/actions/userActions';
 import './App.css';
 
 class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUserConnect, fetchCollectionsAsyncConnect } = this.props;
+    const { fetchCollectionsStartConnect, checkUserConnect } = this.props;
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfile(userAuth);
-        userRef.onSnapshot(snapshot =>
-          setCurrentUserConnect({ id: snapshot.id, ...snapshot.data() })
-        );
-      }
-      setCurrentUserConnect(userAuth);
-    });
+    checkUserConnect();
 
-    fetchCollectionsAsyncConnect();
+    fetchCollectionsStartConnect();
   }
 
   componentWillUnmount() {
@@ -42,14 +33,14 @@ class App extends Component {
 }
 
 App.propTypes = {
-  setCurrentUserConnect: PropTypes.func,
-  fetchCollectionsAsyncConnect: PropTypes.func,
+  fetchCollectionsStartConnect: PropTypes.func,
+  checkUserConnect: PropTypes.func,
 };
 
 export default connect(
   null,
   {
-    setCurrentUserConnect: setCurrentUser,
-    fetchCollectionsAsyncConnect: fetchCollectionsAsync,
+    fetchCollectionsStartConnect: fetchCollectionsStart,
+    checkUserConnect: checkUser,
   }
 )(App);

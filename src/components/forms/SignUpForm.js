@@ -1,33 +1,25 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { auth, createUserProfile } from '../../firebase/firebase';
+import { signupStart } from '../../redux/actions/userActions';
 import styles from './form.module.scss';
 
-export default class SignUpForm extends Component {
+class SignUpForm extends Component {
   state = { displayName: '', email: '', password: '', confirmPassword: '' };
 
   handleChange = e => this.setState({ [e.target.name]: e.target.value });
 
   handleSubmit = async e => {
     e.preventDefault();
+
     const { displayName, email, password, confirmPassword } = this.state;
+    const { signupStartConnect } = this.props;
+
     if (password !== confirmPassword) alert('Password do not match!');
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserProfile(user, { displayName });
-      this.setState({
-        displayName: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-      });
-    } catch (error) {
-      alert(error.message);
-    }
+
+    signupStartConnect({ email, password, displayName });
   };
 
   render() {
@@ -103,3 +95,12 @@ export default class SignUpForm extends Component {
     );
   }
 }
+
+SignUpForm.propTypes = {
+  signupStartConnect: PropTypes.func,
+};
+
+export default connect(
+  null,
+  { signupStartConnect: signupStart }
+)(SignUpForm);
