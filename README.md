@@ -4,13 +4,13 @@
 
 ## 使用技術
 
-React: create-react-app, react-router-dom, React CSS module, Redux, Firebase<br>
-API: Stripe<br>
+React: create-react-app, react-router-dom, React CSS module, Redux, Redux Thunk, Redux Saga<br>
+API: Stripe, Firebase<br>
 CSS: SASS
 
 ## 說明
 
-React 打造 UI，Redux 管理 state，Firebase 處理帳號認證，Stripe 處理付款
+React 打造 UI，Redux 管理 state，Firebase 處理帳號認證，Stripe 處理付款，Redux Saga 處理 Async API calls，React Hooks 取代 class component
 
 ## 發布
 
