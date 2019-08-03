@@ -21,9 +21,6 @@ function Header({ currentUser, isShowing, signoutStartConnect }) {
         <Link className={styles.option} to="/shop">
           SHOP
         </Link>
-        <Link className={styles.option} to="/shop">
-          CONTACT
-        </Link>
         {!currentUser ? (
           <Link className={styles.option} to="/signin">
             SIGN IN
