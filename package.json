@@ -142,6 +142,7 @@
     ]
   },
   "devDependencies": {
+    "acorn-dynamic-import": "^3.0.0",
     "babel-eslint": "^9.0.0",
     "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
