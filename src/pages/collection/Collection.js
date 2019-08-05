@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -8,8 +8,9 @@ import Spinner from '../../components/spinner/Spinner';
 import styles from './Collection.module.scss';
 
 function Collection({ match, items }) {
+  const findCollection = useCallback(title => items[title], [items]);
+
   if (items) {
-    const findCollection = title => items[title];
     const selectCollection = findCollection(match.params.title);
 
     return (

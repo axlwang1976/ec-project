@@ -21,9 +21,7 @@ export default class ErrorHandle extends Component {
     if (hasErrored) {
       return (
         <div className={styles.errorHandle}>
-          <div>
-            <img src={errorImage} alt="error" />
-          </div>
+          <img src={errorImage} alt="error" />
           <div className={styles.errorText}>Something went wrong...</div>
         </div>
       );

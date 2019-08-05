@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './CartItem.module.scss';
 
-export default function CartItem({ name, price, imageUrl, qty }) {
+function CartItem({ name, price, imageUrl, qty }) {
   return (
     <div className={styles.cartItem}>
       <img src={imageUrl} alt="name" />
@@ -22,3 +22,5 @@ CartItem.propTypes = {
   imageUrl: PropTypes.string,
   qty: PropTypes.number,
 };
+
+export default React.memo(CartItem);
